@@ -2,7 +2,7 @@ version: '2'
 
 services:
   webprotege:
-    build: .
+    image: skyplabs/webprotege
     depends_on:
       - mongodb
     ports:
