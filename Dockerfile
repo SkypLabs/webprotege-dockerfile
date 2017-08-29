@@ -12,6 +12,7 @@ RUN rm -rf * \
     && rm webprotege.war
 
 COPY config/webprotege.properties ROOT/WEB-INF/classes/webprotege.properties
+COPY config/mail.properties ROOT/WEB-INF/classes/mail.properties
 
 RUN sed -i "s/\(application.version *= *\).*/\1$WEBPROTEGE_VERSION/" ROOT/WEB-INF/classes/webprotege.properties
 
