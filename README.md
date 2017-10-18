@@ -1,5 +1,7 @@
 # WebProtégé
 
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/168f293b92f64cf1a7a56cee6f914e3c)](https://www.codacy.com/app/skyper/webprotege-dockerfile?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=SkypLabs/webprotege-dockerfile&amp;utm_campaign=Badge_Grade)
+
 This image allows you to deploy [WebProtégé][webprotege] as a [microservice][microservice].
 
 WebProtégé is a free, open-source ontology editor and framework for building intelligent systems.
