@@ -3,7 +3,7 @@ FROM tomcat:8.5
 LABEL net.skyplabs.maintainer-name="Paul-Emmanuel Raoul"
 LABEL net.skyplabs.maintainer-email="skyper@skyplabs.net"
 
-ENV WEBPROTEGE_VERSION="2.6.0"
+ENV WEBPROTEGE_VERSION="3.0.0"
 ENV JAVA_OPTS="$JAVA_OPTS -Dfile.encoding=UTF-8"
 
 WORKDIR /usr/local/tomcat/webapps
