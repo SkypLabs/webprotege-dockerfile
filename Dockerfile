@@ -1,5 +1,7 @@
 FROM tomcat:8.5
-MAINTAINER Paul-Emmanuel Raoul <skyper@skyplabs.net>
+
+LABEL net.skyplabs.maintainer-name="Paul-Emmanuel Raoul"
+LABEL net.skyplabs.maintainer-email="skyper@skyplabs.net"
 
 ENV WEBPROTEGE_VERSION="2.6.0"
 ENV JAVA_OPTS="$JAVA_OPTS -Dfile.encoding=UTF-8"
