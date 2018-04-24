@@ -48,5 +48,5 @@ The following values must be set in `webprotege.properties`:
  [mail-properties]: https://github.com/SkypLabs/webprotege-dockerfile/blob/master/config/mail.properties
  [microservice]: https://en.wikipedia.org/wiki/Microservices
  [mongodb]: https://www.mongodb.com/
- [webprotege]: http://protege.stanford.edu/
+ [webprotege]: https://protegewiki.stanford.edu/wiki/WebProtege
  [webprotege-properties]: https://github.com/SkypLabs/webprotege-dockerfile/blob/master/config/webprotege.properties
