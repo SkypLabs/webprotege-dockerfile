@@ -7,7 +7,7 @@ ENV WEBPROTEGE_VERSION="3.0.0"
 ENV JAVA_OPTS="$JAVA_OPTS -Dfile.encoding=UTF-8"
 
 WORKDIR /usr/local/tomcat/webapps
-RUN rm -rf * \
+RUN rm -rf ./* \
     && mkdir -p /data/webprotege \
     && wget -q -O webprotege.war https://github.com/protegeproject/webprotege/releases/download/v${WEBPROTEGE_VERSION}/webprotege-${WEBPROTEGE_VERSION}.war \
     && unzip -q webprotege.war -d ROOT \
