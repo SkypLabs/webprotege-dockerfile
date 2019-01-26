@@ -12,18 +12,19 @@ ENV webprotege.data.directory=${WEBPROTEGE_DATA_DIR}
 ENV JAVA_OPTS="$JAVA_OPTS -Dfile.encoding=UTF-8"
 
 WORKDIR ${CATALINA_HOME}/webapps
-RUN rm -rf ./* \
-    && mkdir -p ${WEBPROTEGE_DATA_DIR} \
-    && wget -q -O webprotege.war ${WEBPROTEGE_DOWNLOAD_BASE_URL}/webprotege-${WEBPROTEGE_VERSION}.war \
-    && unzip -q webprotege.war -d ROOT \
+
+RUN rm -rf ${CATALINA_HOME}/webapps/* &&\
+    mkdir -p ${WEBPROTEGE_DATA_DIR} &&\
+    mkdir -p /usr/local/share/java
+
+ADD ${WEBPROTEGE_DOWNLOAD_BASE_URL}/webprotege-${WEBPROTEGE_VERSION}.war ./webprotege.war
+ADD ${WEBPROTEGE_DOWNLOAD_BASE_URL}/webprotege-${WEBPROTEGE_VERSION}-cli.jar /usr/local/share/java/
+
+RUN unzip -q webprotege.war -d ROOT \
     && rm webprotege.war
 
 COPY config/webprotege.properties /etc/webprotege/webprotege.properties
 COPY config/mail.properties /etc/webprotege/mail.properties
-
-RUN mkdir /usr/local/share/java \
-    && wget -q -O /usr/local/share/java/webprotege-cli ${WEBPROTEGE_DOWNLOAD_BASE_URL}/webprotege-${WEBPROTEGE_VERSION}-cli.jar
-
 COPY scripts/webprotege-cli /usr/local/bin/webprotege-cli
 
 EXPOSE 8080
