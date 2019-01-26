@@ -13,20 +13,20 @@ ENV JAVA_OPTS="$JAVA_OPTS -Dfile.encoding=UTF-8"
 
 WORKDIR ${CATALINA_HOME}/webapps
 
-RUN rm -rf ./*                                                              &&\
-    mkdir -p ${CATALINA_HOME}/webapps/ROOT                                  &&\
-    mkdir -p ${WEBPROTEGE_DATA_DIR}                                         &&\
-    mkdir -p /usr/local/share/java                                          &&\
-    mkdir -p mkdir /var/log/webprotege                                      &&\
-    adduser -S -D -s /sbin/nologin -H -h /dev/null -g webprotege webprotege &&\
-    chown webprotege: ${WEBPROTEGE_DATA_DIR}                                &&\
-    chown webprotege: /var/log/webprotege
-
-ADD ${WEBPROTEGE_DOWNLOAD_BASE_URL}/webprotege-${WEBPROTEGE_VERSION}.war ./webprotege.war
-ADD ${WEBPROTEGE_DOWNLOAD_BASE_URL}/webprotege-${WEBPROTEGE_VERSION}-cli.jar /usr/local/share/java/
-
-RUN unzip -q webprotege.war -d ROOT \
-    && rm webprotege.war
+RUN rm -rf ./*                                                                  &&\
+    mkdir -p ${CATALINA_HOME}/webapps/ROOT                                      &&\
+    mkdir -p ${WEBPROTEGE_DATA_DIR}                                             &&\
+    mkdir -p /usr/local/share/java                                              &&\
+    mkdir -p /var/log/webprotege                                                &&\
+    adduser -S -D -s /sbin/nologin -H -h /dev/null -g webprotege webprotege     &&\
+    chown webprotege: ${WEBPROTEGE_DATA_DIR}                                    &&\
+    chown webprotege: /var/log/webprotege                                       &&\
+    wget -q -O webprotege.war \
+      ${WEBPROTEGE_DOWNLOAD_BASE_URL}/webprotege-${WEBPROTEGE_VERSION}.war      &&\
+    wget -q -O /usr/local/share/java/webprotege-cli \
+      ${WEBPROTEGE_DOWNLOAD_BASE_URL}/webprotege-${WEBPROTEGE_VERSION}-cli.jar  &&\
+    unzip -q webprotege.war -d ROOT                                             &&\
+    rm -f webprotege.war
 
 COPY config/webprotege.properties /etc/webprotege/webprotege.properties
 COPY config/mail.properties /etc/webprotege/mail.properties
