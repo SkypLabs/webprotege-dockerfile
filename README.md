@@ -35,9 +35,9 @@ For example:
 
 The following values must be set in `webprotege.properties`:
 
-*  `application.host`
-*  `data.directory`
-*  `application.version`
+*    `application.host`
+*    `data.directory`
+*    `application.version`
 
 ## License
 
