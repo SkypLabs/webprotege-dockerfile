@@ -9,6 +9,7 @@ services:
       - "8888:8080"
     volumes:
       - webprotege_data:/srv/webprotege
+      - webprotege_logs:/var/log/webprotege
 
   mongodb:
     image: mongo:3
@@ -17,5 +18,5 @@ services:
 
 volumes:
   webprotege_data:
-
+  webprotege_logs:
   mongodb_data:
