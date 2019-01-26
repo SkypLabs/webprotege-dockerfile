@@ -11,7 +11,7 @@ ENV webprotege.application.version=${WEBPROTEGE_VERSION}
 ENV webprotege.data.directory=${WEBPROTEGE_DATA_DIR}
 ENV JAVA_OPTS="$JAVA_OPTS -Dfile.encoding=UTF-8"
 
-WORKDIR /usr/local/tomcat/webapps
+WORKDIR ${CATALINA_HOME}/webapps
 RUN rm -rf ./* \
     && mkdir -p ${WEBPROTEGE_DATA_DIR} \
     && wget -q -O webprotege.war ${WEBPROTEGE_DOWNLOAD_BASE_URL}/webprotege-${WEBPROTEGE_VERSION}.war \
