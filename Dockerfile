@@ -5,6 +5,7 @@ LABEL net.skyplabs.maintainer-email="skyper@skyplabs.net"
 
 ARG WEBPROTEGE_VERSION="3.0.0"
 ARG WEBPROTEGE_DATA_DIR=/srv/webprotege
+ARG WEBPROTEGE_LOG_DIR=/var/log/webprotege
 ARG WEBPROTEGE_DOWNLOAD_BASE_URL=https://github.com/protegeproject/webprotege/releases/download/v${WEBPROTEGE_VERSION}
 
 ENV webprotege.application.version=${WEBPROTEGE_VERSION}
@@ -16,11 +17,11 @@ WORKDIR ${CATALINA_HOME}/webapps
 RUN rm -rf ./*                                                                  &&\
     mkdir -p ${CATALINA_HOME}/webapps/ROOT                                      &&\
     mkdir -p ${WEBPROTEGE_DATA_DIR}                                             &&\
+    mkdir -p ${WEBPROTEGE_LOG_DIR}                                             &&\
     mkdir -p /usr/local/share/java                                              &&\
-    mkdir -p /var/log/webprotege                                                &&\
     adduser -S -D -s /sbin/nologin -H -h /dev/null -g webprotege webprotege     &&\
     chown webprotege: ${WEBPROTEGE_DATA_DIR}                                    &&\
-    chown webprotege: /var/log/webprotege                                       &&\
+    chown webprotege: ${WEBPROTEGE_LOG_DIR}                                    &&\
     wget -q -O webprotege.war \
       ${WEBPROTEGE_DOWNLOAD_BASE_URL}/webprotege-${WEBPROTEGE_VERSION}.war      &&\
     wget -q -O /usr/local/share/java/webprotege-cli \
@@ -34,6 +35,7 @@ COPY scripts/webprotege-cli /usr/local/bin/webprotege-cli
 
 EXPOSE 8080
 VOLUME ${WEBPROTEGE_DATA_DIR}
+VOLUME ${WEBPROTEGE_LOG_DIR}
 
 USER webprotege
 
