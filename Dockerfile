@@ -32,7 +32,7 @@ COPY config/mail.properties /etc/webprotege/mail.properties
 COPY scripts/webprotege-cli /usr/local/bin/webprotege-cli
 
 EXPOSE 8080
-VOLUME /srv/webprotege
+VOLUME ${WEBPROTEGE_DATA_DIR}
 
 USER webprotege
 
