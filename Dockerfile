@@ -17,6 +17,11 @@ RUN rm -rf ./* \
 COPY config/webprotege.properties /etc/webprotege/webprotege.properties
 COPY config/mail.properties /etc/webprotege/mail.properties
 
+RUN mkdir /usr/local/share/java \
+    && wget -q -O /usr/local/share/java/webprotege-cli https://github.com/protegeproject/webprotege/releases/download/v${WEBPROTEGE_VERSION}/webprotege-${WEBPROTEGE_VERSION}-cli.jar
+
+COPY scripts/webprotege-cli /usr/local/bin/webprotege-cli
+
 EXPOSE 8080
 VOLUME /srv/webprotege
 
