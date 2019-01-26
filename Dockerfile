@@ -1,4 +1,4 @@
-FROM tomcat:8.5
+FROM tomcat:8-alpine
 
 LABEL net.skyplabs.maintainer-name="Paul-Emmanuel Raoul"
 LABEL net.skyplabs.maintainer-email="skyper@skyplabs.net"
@@ -13,12 +13,13 @@ ENV JAVA_OPTS="$JAVA_OPTS -Dfile.encoding=UTF-8"
 
 WORKDIR ${CATALINA_HOME}/webapps
 
-RUN rm -rf ${CATALINA_HOME}/webapps/*               &&\
-    mkdir -p ${WEBPROTEGE_DATA_DIR}                 &&\
-    mkdir -p /usr/local/share/java                  &&\
-    mkdir -p mkdir /var/log/webprotege              &&\
-    useradd -r -M -s /usr/sbin/nologin webprotege   &&\
-    chown webprotege: ${WEBPROTEGE_DATA_DIR}        &&\
+RUN rm -rf ./*                                                              &&\
+    mkdir -p ${CATALINA_HOME}/webapps/ROOT                                  &&\
+    mkdir -p ${WEBPROTEGE_DATA_DIR}                                         &&\
+    mkdir -p /usr/local/share/java                                          &&\
+    mkdir -p mkdir /var/log/webprotege                                      &&\
+    adduser -S -D -s /sbin/nologin -H -h /dev/null -g webprotege webprotege &&\
+    chown webprotege: ${WEBPROTEGE_DATA_DIR}                                &&\
     chown webprotege: /var/log/webprotege
 
 ADD ${WEBPROTEGE_DOWNLOAD_BASE_URL}/webprotege-${WEBPROTEGE_VERSION}.war ./webprotege.war
