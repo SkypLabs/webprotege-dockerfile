@@ -13,9 +13,13 @@ ENV JAVA_OPTS="$JAVA_OPTS -Dfile.encoding=UTF-8"
 
 WORKDIR ${CATALINA_HOME}/webapps
 
-RUN rm -rf ${CATALINA_HOME}/webapps/* &&\
-    mkdir -p ${WEBPROTEGE_DATA_DIR} &&\
-    mkdir -p /usr/local/share/java
+RUN rm -rf ${CATALINA_HOME}/webapps/*               &&\
+    mkdir -p ${WEBPROTEGE_DATA_DIR}                 &&\
+    mkdir -p /usr/local/share/java                  &&\
+    mkdir -p mkdir /var/log/webprotege              &&\
+    useradd -r -M -s /usr/sbin/nologin webprotege   &&\
+    chown webprotege: ${WEBPROTEGE_DATA_DIR}        &&\
+    chown webprotege: /var/log/webprotege
 
 ADD ${WEBPROTEGE_DOWNLOAD_BASE_URL}/webprotege-${WEBPROTEGE_VERSION}.war ./webprotege.war
 ADD ${WEBPROTEGE_DOWNLOAD_BASE_URL}/webprotege-${WEBPROTEGE_VERSION}-cli.jar /usr/local/share/java/
@@ -29,5 +33,7 @@ COPY scripts/webprotege-cli /usr/local/bin/webprotege-cli
 
 EXPOSE 8080
 VOLUME /srv/webprotege
+
+USER webprotege
 
 CMD ["catalina.sh", "run"]
