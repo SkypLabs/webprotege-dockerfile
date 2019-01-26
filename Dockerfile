@@ -4,14 +4,16 @@ LABEL net.skyplabs.maintainer-name="Paul-Emmanuel Raoul"
 LABEL net.skyplabs.maintainer-email="skyper@skyplabs.net"
 
 ARG WEBPROTEGE_VERSION="3.0.0"
+ARG WEBPROTEGE_DATA_DIR=/srv/webprotege
 ARG WEBPROTEGE_DOWNLOAD_BASE_URL=https://github.com/protegeproject/webprotege/releases/download/v${WEBPROTEGE_VERSION}
 
 ENV webprotege.application.version=${WEBPROTEGE_VERSION}
+ENV webprotege.data.directory=${WEBPROTEGE_DATA_DIR}
 ENV JAVA_OPTS="$JAVA_OPTS -Dfile.encoding=UTF-8"
 
 WORKDIR /usr/local/tomcat/webapps
 RUN rm -rf ./* \
-    && mkdir -p /srv/webprotege \
+    && mkdir -p ${WEBPROTEGE_DATA_DIR} \
     && wget -q -O webprotege.war ${WEBPROTEGE_DOWNLOAD_BASE_URL}/webprotege-${WEBPROTEGE_VERSION}.war \
     && unzip -q webprotege.war -d ROOT \
     && rm webprotege.war
